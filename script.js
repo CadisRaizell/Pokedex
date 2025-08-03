@@ -22,6 +22,7 @@ const renderPokemon = async (pokemon) => {
 
   pokemonName.innerHTML = 'Loading...';
   pokemonNumber.innerHTML = '';
+  pokemonImage.style.display = 'none';
 
   const data = await fetchPokemon(pokemon);
 
@@ -32,6 +33,12 @@ const renderPokemon = async (pokemon) => {
     pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
     input.value = '';
     searchPokemon = data.id;
+
+    // Tocar o som de cry
+    const cryAudio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${data.name.toLowerCase()}.mp3`);
+    cryAudio.volume = 0.2; // 250% do volume máximo
+    cryAudio.play();
+
   } else {
     pokemonImage.style.display = 'none';
     pokemonName.innerHTML = 'Not found :c';
